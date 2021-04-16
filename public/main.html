@@ -1,5 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+<script>
+    window.onload=()=>{
+        let searchButton = document.getElementById('searchButton');
+        searchButton.onclick = search
+    }
+
+    function search(){
+        var searchData = document.getElementsByName("searchBox").value;
+        document.getElementsByName("searchBox").value = "asdf";
+        $.post({
+            url:"/search",
+            data:{dat : searchData},
+            success:function(dat){
+                var searchList = document.createElement("li");
+                searchList.id = 'searchList';
+                searchList.textContent = dat;
+                document.getElementsByClassName("searchData").appendChild(searchList);
+            },
+            error:()=>{
+                console.log("error")
+            }
+        })
+    }
+</script>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,10 +31,10 @@
     <title>hospital test server</title>
 </head>
 <body>
-    <h1>test</h1>
+    <h1 id="title">test</h1>
     <div>
         <input name="searchBox" type="text" value="searchData">
-        <button>검색</button>
+        <button id='searchButton' onclick="search">검색</button>
     </div>
     <div class="searchData">
         

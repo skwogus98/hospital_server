@@ -19,9 +19,16 @@ app.engine('html', ejs.renderFile);
 
 app.use(express.static('public'));
 
+//main.html
 app.get('/',function(req, res, next) {
     res.render('main.html');
     next();
 })
+
+app.post('/search', function(req,res){
+    console.log("search");
+    res.send("search good");
+});
+
 
 app.listen(port,() => console.log("port : " + port));
