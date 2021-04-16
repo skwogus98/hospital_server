@@ -3,7 +3,7 @@ var ejs = require('ejs');
 var fs = require('fs');
 const app = express();
 const http = require("http");
-
+var bodyParser = require("body-parser");
 var hostinfo = fs.readFileSync("hostinfo.txt",'utf-8').split(','); // 호스트ip, 포트정보
 
 const hostname = hostinfo[0];
@@ -24,10 +24,10 @@ app.get('/',function(req, res, next) {
     res.render('main.html');
     next();
 })
-
-app.post('/search', function(req,res){
-    console.log("search");
-    res.send("search good");
+//search part
+app.get('/search',function(req, res){
+    console.log(req.query.sendData)
+    res.send(req.query.sendData);
 });
 
 

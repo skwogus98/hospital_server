@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
     window.onload=()=>{
         let searchButton = document.getElementById('searchButton');
@@ -7,21 +8,12 @@
     }
 
     function search(){
-        var searchData = document.getElementsByName("searchBox").value;
-        document.getElementsByName("searchBox").value = "asdf";
-        $.post({
-            url:"/search",
-            data:{dat : searchData},
-            success:function(dat){
-                var searchList = document.createElement("li");
-                searchList.id = 'searchList';
-                searchList.textContent = dat;
-                document.getElementsByClassName("searchData").appendChild(searchList);
-            },
-            error:()=>{
-                console.log("error")
-            }
-        })
+        var searchData = document.getElementById("searchBox").value;
+        alert(searchData);
+        $.get("/search", {sendData: searchData},
+            function(data){
+                alert(data);
+            })
     }
 </script>
 <head>
@@ -33,8 +25,8 @@
 <body>
     <h1 id="title">test</h1>
     <div>
-        <input name="searchBox" type="text" value="searchData">
-        <button id='searchButton' onclick="search">검색</button>
+        <input id="searchBox" type="text" value="">
+        <button id='searchButton'>검색</button>
     </div>
     <div class="searchData">
         
