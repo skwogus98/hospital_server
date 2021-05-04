@@ -27,23 +27,6 @@
     <div>
         <input id="searchBox" type="text" value="">
         <button id='searchButton'>검색</button>
-        <?php
-            $hospitalServiceKey = "1KOTY13zmzBNx9vXz6VT1RTGYVxz%2Bz0nw5hpHyiWbzobPE4EcCS2eiPHpqRc%2BtDNi6MwizzOVn4OYuVK6infDA%3D%3D";
-            $hospitalSearchEndPoint = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/";
-            $hospitalSearch = $hospitalSearchEndPoint+'getHsptlMdcncListInfoInqire?serviceKey='+hospitalServiceKey+"&Q0=대구";
-            $ch = curl_init();
-
-            cURL_setopt($ch, CURLOPT_URL, $hospitalSearch);
-            cURL_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-            $response = cURL_exec($ch);
-            cURL_close($ch); 
-
-            $object = simplexml_load_string($response);
-            $suggest0 = 
-
-            echo $suggest0;
-        ?>
     </div>
     <div class="searchData">
         

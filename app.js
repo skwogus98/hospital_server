@@ -17,7 +17,7 @@ const hospitalSearchEndPoint = "http://apis.data.go.kr/B552657/HsptlAsembySearch
 var hospitalSearch = hospitalSearchEndPoint+'getHsptlMdcncListInfoInqire?serviceKey='+hospitalServiceKey+encodeURI("&Q0=대구");
 
 //서비스키 
-
+var asdf = "asdf";
 //console.log(hospitalSearch);
 
 app.set('views',__dirname+'/public');
@@ -29,12 +29,28 @@ app.use(express.static('public'));
 //main.html
 app.get('/',function(req, res, next) {
     res.render('main.html');
+    request.get(hospitalSearch, (err,response,body)=>{
+        if(err){
+            console.log(err);
+        }
+        
+        else{
+            if(response.statusCode==200){
+                var result = body
+                var bodyJson = xml2json.xml2json(result,{compact: true,spaces:4});
+                //console.log(bodyJson);
+                asdf = bodyJson;
+            }
+        }
+    })
+    await console.log(asdf)
     next();
 })
 //search part
 app.get('/search',function(req, res){
     console.log(req.query)
-    searchData()
+    res.send(asdf);
+    //searchData()
 });
 
 
