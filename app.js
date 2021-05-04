@@ -7,6 +7,8 @@ const request = require('request');
 const xml2json = require('xml-js');
 var bodyParser = require("body-parser");
 var hostinfo = fs.readFileSync("hostinfo.txt",'utf-8').split(','); // 호스트ip, 포트정보
+var rp = require("request-promise-native");
+const { response } = require('express');
 
 const hostname = hostinfo[0];
 const port = hostinfo[1];
@@ -17,7 +19,6 @@ const hospitalSearchEndPoint = "http://apis.data.go.kr/B552657/HsptlAsembySearch
 var hospitalSearch = hospitalSearchEndPoint+'getHsptlMdcncListInfoInqire?serviceKey='+hospitalServiceKey+encodeURI("&Q0=대구");
 
 //서비스키 
-var asdf = "asdf";
 //console.log(hospitalSearch);
 
 app.set('views',__dirname+'/public');
@@ -43,7 +44,7 @@ app.get('/',function(req, res, next) {
             }
         }
     })
-    await console.log(asdf)
+    console.log(asdf)
     next();
 })
 //search part
@@ -51,6 +52,23 @@ app.get('/search',function(req, res){
     console.log(req.query)
     res.send(asdf);
     //searchData()
+});
+
+app.get('/test',function(req, res){
+    var sendData;
+    function saveData(hospitalSearch){
+        return new Promise((resolve, reject) => {
+            request(hospitalSearch, (err, res, body) =>{
+                if(err) reject(err);
+                else{
+                    if(res.statusCode!=200){
+                    
+                    }
+                }
+            })
+        })
+    }
+    console.log(sendData);
 });
 
 
