@@ -18,7 +18,7 @@ var hospitalSearch = hospitalSearchEndPoint+'getHsptlMdcncListInfoInqire?service
 
 //서비스키 
 
-console.log(hospitalSearch);
+//console.log(hospitalSearch);
 
 app.set('views',__dirname+'/public');
 app.set('view engine','ejs');
@@ -33,8 +33,8 @@ app.get('/',function(req, res, next) {
 })
 //search part
 app.get('/search',function(req, res){
-    console.log(req.query.sendData)
-    res.send(req.query.sendData);
+    console.log(req.query)
+    searchData()
 });
 
 
@@ -56,28 +56,25 @@ request.get(hospitalSearch, (err,res,body)=>{
 })​*/
 
 
-request.get(hospitalSearch, (err, res, body)=> {
-
-   if(err) {
-
-         console.log(`err => ${err}`)
-
-   }
-
-  else {
-
-      if(res.statusCode == 200) {
-
-                var result = body
-
-                console.log(`body data => ${result}`)
-
-                var xmlToJson = xml2json.xml2json(result, {compact: true, spaces: 4});
-
-                console.log(`xml to json => ${xmlToJson}`)
-
-       }
-
-   }
-
-})
+function searchData(){
+    request(hospitalSearch,function(err,res,body){
+        if(err){
+            console.log(`err => ${err}`)
+        }
+        else {
+     
+            if(res.statusCode == 200) {
+      
+                      var result = body
+      
+                      //console.log(`body data => ${result}`)
+      
+                      var xmlToJson = xml2json.xml2json(result, {compact: true, spaces: 4});
+      
+                      console.log(xmlToJson)
+                      return xmlToJson
+             }
+      
+         }
+    })
+}
