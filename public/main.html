@@ -2,19 +2,6 @@
 <html lang="en">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
-    window.onload=()=>{
-        let searchButton = document.getElementById('searchButton');
-        searchButton.onclick = search
-    }
-
-    function search(){
-        var searchData = document.getElementById("searchBox").value;
-        alert(searchData);
-        $.get("/search", {sendData: searchData},
-            function(data){
-                alert(data);
-            })
-    }
 </script>
 <head>
     <meta charset="UTF-8">
@@ -24,12 +11,8 @@
 </head>
 <body>
     <h1 id="title">test</h1>
-    <div>
-        <input id="searchBox" type="text" value="">
-        <button id='searchButton'>검색</button>
-    </div>
-    <div class="searchData">
-        
-    </div>
+    <form>
+        asdf
+    </form>
 </body>
 </html>

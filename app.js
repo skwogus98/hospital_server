@@ -9,7 +9,7 @@ var bodyParser = require("body-parser");
 var hostinfo = fs.readFileSync("hostinfo.txt",'utf-8').split(','); // 호스트ip, 포트정보
 var rp = require("request-promise-native");
 const { response } = require('express');
-const retus = require("retus");
+const retus = require("retus");//신의 힘을 가짐
 const hostname = hostinfo[0];
 const port = hostinfo[1];
 
@@ -46,34 +46,6 @@ app.get('/',function(req, res, next) {
     console.log(asdf)
     next();
 })
-/*
-function saveSearchData(url){
-    const Data = new Promise((resolve, reject) => {
-        request.get(hospitalSearch,function(err,res,body){
-            if(err){
-                reject(`err => ${err}`)
-            }
-            else {
-         
-                if(res.statusCode == 200) {
-          
-                          var result = body
-          
-                          //console.log(`body data => ${result}`)
-          
-                          var xmlToJson = xml2json.xml2json(result, {compact: true, spaces: 4});
-          
-                          console.log(xmlToJson)
-                          resolve(xmlToJson)
-                 }
-          
-             }
-        })
-    })
-    return Data
-}
-
-*/
 
 //search part
 app.get('/search',function(req, res){
@@ -103,44 +75,3 @@ app.get('/test',function(req, res){
 
 
 app.listen(port,() => console.log("port : " + port));
-/*
-request.get(hospitalSearch, (err,res,body)=>{
-    if(err){
-        console.log(err);
-    }
-    else{
-        if(res.statusCode==200){
-            var result = body
-            console.log(result);
-            console.log("\n\n\n");
-            var bodyJson = xml2json.xml2json(result,{compact: true,spaces:4});
-            console.log(bodyJson);
-        }
-    }
-})​*/
-
-
-function searchData(){
-    request.get(hospitalSearch,function(err,res,body){
-        if(err){
-            console.log(`err => ${err}`)
-        }
-        else {
-     
-            if(res.statusCode == 200) {
-      
-                      var result = body
-      
-                      //console.log(`body data => ${result}`)
-      
-                      var xmlToJson = xml2json.xml2json(result, {compact: true, spaces: 4});
-      
-                      console.log(xmlToJson)
-                      return xmlToJson
-             }
-      
-         }
-    })
-}
-
-
