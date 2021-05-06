@@ -34,7 +34,6 @@ app.get('/',function(req, res, next) {
 
 //search part
 app.get('/search',function(req, res){
-    console.log(req.query.searchData)
     var hospitalSearch = hospitalSearchEndPoint+'getHsptlMdcncListInfoInqire?serviceKey='+hospitalServiceKey+encodeURI("&Q0="+req.query.searchData);
     const dat = retus(hospitalSearch);
     var result = dat.body;

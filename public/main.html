@@ -2,8 +2,18 @@
 <html lang="en">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
+    function clearResult(){
+        var d = document.querySelector('div.result');
+        var result = d.querySelectorAll("div");
+        Array.prototype.forEach.call(result, function(node){
+            node.parentNode.removeChild(node);
+        })
+    }
+
+
     function search(){
         var search = document.getElementById("searchBox").value;
+        clearResult();
         $.ajax({
             method:"GET",url:"/search",
             data:{searchData:search},
@@ -39,7 +49,7 @@
 <body>
     <h1 id="title">test</h1>
     <div class = "search">
-        <input id = "searchBox" type="text" name="searchData" onkeyup="search()">
+        <input id = "searchBox" type="text" name="searchData" onkeypress="javascript:if(event.keyCode==13) {search()}">
         <input type="button" value="검색" onclick="search()">
     </div>
     <div class="result">
