@@ -2,6 +2,22 @@
 <html lang="en">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
+    function search(){
+        var search = document.getElementById("searchBox").value;
+        $.ajax({
+            method:"GET",url:"/search",
+            searchData:search,
+            success:function(dat){
+                var resultPage = document.getElementsByClassName("result")
+                for(var key in dat){
+                    console.log(dat["body"]);
+                }
+            },
+            error:()=>{
+                        console.log("error");
+            }
+        })
+    }
 </script>
 <head>
     <meta charset="UTF-8">
@@ -11,8 +27,11 @@
 </head>
 <body>
     <h1 id="title">test</h1>
-    <form>
-        asdf
+    <form id = "search" method="get">
+        <input id = "searchBox" type="text" name="searchData">
+        <input type="button" value="검색" onclick="search()">
     </form>
+    <div class="result">
+    </div>
 </body>
 </html>

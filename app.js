@@ -16,7 +16,6 @@ const port = hostinfo[1];
 console.log(hostname);
 const hospitalServiceKey = "1KOTY13zmzBNx9vXz6VT1RTGYVxz%2Bz0nw5hpHyiWbzobPE4EcCS2eiPHpqRc%2BtDNi6MwizzOVn4OYuVK6infDA%3D%3D";
 const hospitalSearchEndPoint = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/";
-var hospitalSearch = hospitalSearchEndPoint+'getHsptlMdcncListInfoInqire?serviceKey='+hospitalServiceKey+encodeURI("&Q0=대구");
 
 //서비스키 
 //console.log(hospitalSearch);
@@ -30,48 +29,20 @@ app.use(express.static('public'));
 //main.html
 app.get('/',function(req, res, next) {
     res.render('main.html');
-    request.get(hospitalSearch, (err,response,body)=>{
-        if(err){
-            console.log(err);
-        }
-        else{
-            if(response.statusCode==200){
-                var result = body
-                var bodyJson = xml2json.xml2json(result,{compact: true,spaces:4});
-                //console.log(bodyJson);
-                asdf = bodyJson;
-            }
-        }
-    })
-    console.log(asdf)
     next();
 })
 
 //search part
 app.get('/search',function(req, res){
-    console.log(req.query)
-    /*
-    async function loadData(){
-        try{
-            var sendData = await saveSearchData(hospitalSearch);
-            console.log(sendData);
-            res.send(sendData);
-        }
-        catch(error){
-            console.error(error);
-        }
-    }*/
+    var hospitalSearch = hospitalSearchEndPoint+'getHsptlMdcncListInfoInqire?serviceKey='+hospitalServiceKey+encodeURI("&Q0="+req.query.searchData);
     const dat = retus(hospitalSearch);
-    var result = dat.body
+    var result = dat.body;
     var xmlToJson = xml2json.xml2json(result, {compact: true, spaces: 4});
-    res.send(xmlToJson)
+    //console.log(xmlToJson);
+    res.json(xmlToJson);
 });
 
 app.get('/test',function(req, res){
-    var sendData;
-    
-    console.log(sendData);
 });
-
 
 app.listen(port,() => console.log("port : " + port));
