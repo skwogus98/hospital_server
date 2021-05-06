@@ -4,7 +4,7 @@ var fs = require('fs');
 const app = express();
 const http = require("http");
 const request = require('request');
-const xml2json = require('xml-js');
+const convert = require('xml-js');
 var bodyParser = require("body-parser");
 var hostinfo = fs.readFileSync("hostinfo.txt",'utf-8').split(','); // 호스트ip, 포트정보
 var rp = require("request-promise-native");
@@ -34,12 +34,14 @@ app.get('/',function(req, res, next) {
 
 //search part
 app.get('/search',function(req, res){
+    console.log(req.query.searchData)
     var hospitalSearch = hospitalSearchEndPoint+'getHsptlMdcncListInfoInqire?serviceKey='+hospitalServiceKey+encodeURI("&Q0="+req.query.searchData);
     const dat = retus(hospitalSearch);
     var result = dat.body;
-    var xmlToJson = xml2json.xml2json(result, {compact: true, spaces: 4});
-    //console.log(xmlToJson);
-    res.json(xmlToJson);
+    var xmlToJson = convert.xml2json(result, {compact: true, spaces: 4});
+    //console.log(xmlToJson._declaration);
+    var json = JSON.parse(xmlToJson);
+    res.json(json.response.body);
 });
 
 app.get('/test',function(req, res){

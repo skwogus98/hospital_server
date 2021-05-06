@@ -6,11 +6,22 @@
         var search = document.getElementById("searchBox").value;
         $.ajax({
             method:"GET",url:"/search",
-            searchData:search,
+            data:{searchData:search},
+            dataType:"json",
             success:function(dat){
-                var resultPage = document.getElementsByClassName("result")
-                for(var key in dat){
-                    console.log(dat["body"]);
+                var resultPage = document.getElementsByClassName("result")[0];
+                for(key in dat.items.item){
+                    console.log(key);
+                    var result = document.createElement("div");
+                    var text = "<div>"
+                    text += JSON.stringify(dat.items.item[key].dutyName._text).replace(/"/g,"");
+                    text += "<br>"
+                    text += JSON.stringify(dat.items.item[key].dutyAddr._text).replace(/"/g,"");
+                    text += "<br>"
+                    text += JSON.stringify(dat.items.item[key].dutyTel1._text).replace(/"/g,"");
+                    text += "</div>"
+                    result.innerHTML = text;
+                    resultPage.appendChild(result);
                 }
             },
             error:()=>{
